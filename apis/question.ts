@@ -8,6 +8,12 @@ export interface QuestionCreateProps{
   answer: string;
 }
 
+export interface UpdateAnswerProps {
+  id: string | number;
+  data:{
+    answer: string;
+  }
+}
 
 
 
@@ -62,6 +68,23 @@ export interface AnswerExtendObj extends QuestionObj{
     throw defaultError;
   }
   
+
+
+export const updateAnswerApi = async (props:UpdateAnswerProps) => {
+  const body =  { 
+    data: {...props.data}
+  }
+  try {
+    const response = await quesBaseURL.put(`api/questions/${props.id}`,body); 
+    if(response.status == 200){
+      return response.data.data as QuestionObj; 
+    }
+    throw defaultError;
+  } catch (error) {
+    throw defaultError;
+  }
+  throw defaultError;
+}
 
   export const questionApi = async () => {
     
